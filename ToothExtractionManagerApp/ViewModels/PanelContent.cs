@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using ToothExtractionManager.Data;
 using ToothExtractionManager.Data.Models;
@@ -7,32 +8,15 @@ using ToothExtractionManagerApp.Utils;
 
 namespace ToothExtractionManagerApp.ViewModels
 {
-    public class PanelContent 
+    public class CommandedAppointment : Appointment
     {
-        public Appointment NewAppointment { get; set; }
-        public ObservableCollection<Appointment> CurrentAppointments { get; private set; }
-        public ObservableCollection<Appointment> AllPatientsAppointments { get; private set; }
+        private readonly Appointment _referencedAppointment;
 
-        private readonly AppointmentsService _appointmentService;
+        public Action RefreshAppointments { get; set; }
 
-        public PanelContent()
+        public CommandedAppointment(Appointment originalAppointment) : base(originalAppointment)
         {
-            NewAppointment = new Appointment();
-            //{
-            //    Patient = new PatientInformation()
-            //    {
-            //        FirstName = "Geralt",
-            //        LastName = "Z Rivi",
-            //        PhoneNumber = "348394893"
-            //    },
-            //    Description = "wyrwać wszystkie zęby",
-            //    State = AppointmentState.Created,
-            //    Date = new DateTime(2019, 05, 31)
-            //};
-            _appointmentService = new AppointmentsService();
-            _appointmentService.Load();
-            CurrentAppointments = PrepareCurrentAppointments();
-            AllPatientsAppointments = PrepareAllAppointments();
+            _referencedAppointment = originalAppointment;
         }
 
         private ICommand _confirmCommand;
@@ -52,7 +36,9 @@ namespace ToothExtractionManagerApp.ViewModels
 
         private void ConfirmAppointment()
         {
-            
+            this.State = AppointmentState.Confirmed;
+            _referencedAppointment.State = AppointmentState.Confirmed;
+            RefreshAppointments();
         }
 
         private ICommand _cancelCommand;
@@ -72,7 +58,29 @@ namespace ToothExtractionManagerApp.ViewModels
 
         private void CancelAppointment()
         {
+            this.State = AppointmentState.Cancelled;
+            _referencedAppointment.State = AppointmentState.Cancelled;
+            RefreshAppointments();
+        }
+    }
 
+    public class PanelContent 
+    {
+        public Appointment NewAppointment { get; set; }
+        public ObservableCollection<Appointment> CurrentAppointments { get; private set; }
+        public ObservableCollection<CommandedAppointment> AllPatientsAppointments { get; private set; }
+
+        public AppointmentsService AppointmentService;
+
+        public PanelContent()
+        {
+            NewAppointment = new Appointment();
+            AppointmentService = new AppointmentsService();
+            AppointmentService.Load();
+            CurrentAppointments = new ObservableCollection<Appointment>();
+            FillCurrentAppointments();
+            AllPatientsAppointments = new ObservableCollection<CommandedAppointment>();
+            FillAllAppointments();
         }
 
         private ICommand _saveCommand;
@@ -97,29 +105,38 @@ namespace ToothExtractionManagerApp.ViewModels
             return true;
         }
 
+        private void RefreshAppointments()
+        {
+            AppointmentService.Save();
+            FillAllAppointments();
+            FillCurrentAppointments();
+        }
+
         private void SaveObject()
         {
-            _appointmentService.AddAppointment(NewAppointment);
-            AllPatientsAppointments.Add(NewAppointment);
-            _appointmentService.Save();
+            AppointmentService.AddAppointment(NewAppointment);
+            AllPatientsAppointments.Add(new CommandedAppointment(NewAppointment)
+            {
+                RefreshAppointments = this.RefreshAppointments
+            });
+            AppointmentService.Save();
         }
 
-        private ObservableCollection<Appointment> PrepareCurrentAppointments()
+        private void FillCurrentAppointments()
         {
-            var currentAppointments = _appointmentService.GetCurrentAppointments();
-            var observableAppointments = new ObservableCollection<Appointment>();
-            observableAppointments.AddRange(currentAppointments);
-
-            return observableAppointments;
+            var currentAppointments = AppointmentService.GetCurrentAppointments();
+            CurrentAppointments.Clear();
+            CurrentAppointments.AddRange(currentAppointments);
         }
 
-        private ObservableCollection<Appointment> PrepareAllAppointments()
+        private void FillAllAppointments()
         {
-            var allAppointments = _appointmentService.GetAllAppointments();
-            var observableAppointments = new ObservableCollection<Appointment>();
-            observableAppointments.AddRange(allAppointments);
-
-            return observableAppointments;
+            var allAppointments = AppointmentService.GetAllAppointments().Select(x => new CommandedAppointment(x)
+            {
+                RefreshAppointments = this.RefreshAppointments
+            }).ToList();
+            AllPatientsAppointments.Clear();
+            AllPatientsAppointments.AddRange(allAppointments);
         }
     }
 }

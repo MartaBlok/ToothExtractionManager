@@ -127,7 +127,7 @@
 									<TextBlock Text="{Binding Date}"/>
 									<TextBlock Text="{Binding State}"/>
 								</StackPanel>
-								<Button Content="Confirm" 
+								<Button Content="Confirm"
 								        Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" 
 								        Command="{Binding Path=ConfirmCommand}">
 									<Button.Style>
@@ -143,7 +143,7 @@
 										</Style>
 									</Button.Style>
 								</Button>
-								<Button Content="Cancel" 
+								<Button Content="Cancel"
 								        Tag="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType=ListBox}}" 
 								        Command="{Binding Path=CancelCommand}">
 									<Button.Style>

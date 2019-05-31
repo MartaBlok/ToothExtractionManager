@@ -18,6 +18,14 @@ namespace ToothExtractionManager.Data.Models
             State = AppointmentState.Created;
         }
 
+        public Appointment(Appointment copy)
+        {
+            Patient = copy.Patient;
+            Date = copy.Date;
+            Description = copy.Description;
+            State = copy.State;
+        }
+
         public PatientInformation Patient { get; set; }
         public DateTime Date { get; set; }
         public string Description { get; set; }
