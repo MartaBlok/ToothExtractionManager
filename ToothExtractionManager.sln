@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToothExtractionManagerApp", "ToothExtractionManagerApp\ToothExtractionManagerApp.csproj", "{9CE43F05-4B35-4EEA-95CA-63DB3DC6EED3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToothExtractionManager.Data", "ToothExtractionManager.Data\ToothExtractionManager.Data.csproj", "{DFA90AF1-3A8E-4BE2-800D-9419D6E7F1E5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9CE43F05-4B35-4EEA-95CA-63DB3DC6EED3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CE43F05-4B35-4EEA-95CA-63DB3DC6EED3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CE43F05-4B35-4EEA-95CA-63DB3DC6EED3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CE43F05-4B35-4EEA-95CA-63DB3DC6EED3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA90AF1-3A8E-4BE2-800D-9419D6E7F1E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA90AF1-3A8E-4BE2-800D-9419D6E7F1E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA90AF1-3A8E-4BE2-800D-9419D6E7F1E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA90AF1-3A8E-4BE2-800D-9419D6E7F1E5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03D07F17-6F95-4B87-B0A0-14E1FC92D6C4}
+	EndGlobalSection
+EndGlobal

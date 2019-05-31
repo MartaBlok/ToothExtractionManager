@@ -1,0 +1,42 @@
+[
+  {
+    "Patient": {
+      "FirstName": "Sebastian",
+      "LastName": "Kowalski",
+      "PhoneNumber": "123456789"
+    },
+    "Date": "2020-05-31T14:00:00Z",
+    "Description": "leczenie kanałowe",
+    "State": 1
+  },
+  {
+    "Patient": {
+      "FirstName": "Karyna",
+      "LastName": "Kowalska",
+      "PhoneNumber": "987654321"
+    },
+    "Date": "2018-05-31T00:00:00Z",
+    "Description": "wyrwać wszystkie zęby",
+    "State": 1
+  },
+  {
+    "Patient": {
+      "FirstName": "Janusz",
+      "LastName": "Nowak",
+      "PhoneNumber": "348394893"
+    },
+    "Date": "2019-07-30T10:00:00Z",
+    "Description": "czyszczenie",
+    "State": 1
+  },
+  {
+    "Patient": {
+      "FirstName": "Grażyna",
+      "LastName": "Nowak",
+      "PhoneNumber": "348394893"
+    },
+    "Date": "2019-06-30T00:30:00Z",
+    "Description": "kontrola",
+    "State": 0
+  }
+]
